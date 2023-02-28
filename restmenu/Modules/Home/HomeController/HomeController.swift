@@ -18,5 +18,7 @@ class HomeViewController: BaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Home"
+        screenView.collectionView.delegate = self
+        screenView.collectionView.dataSource = self
     }
 }
