@@ -58,6 +58,9 @@ class FoodItemCell: UICollectionViewCell {
         return button
     }()
     
+    private var foodItem: FoodItem?
+    var addToCartItem: ((FoodItem) -> Void)?
+    
     override init(frame: CGRect) {
           super.init(frame: frame)
         create() 
@@ -115,13 +118,21 @@ class FoodItemCell: UICollectionViewCell {
     }
 
     private func setupUI() {
-//        selectionStyle = .none
+        addToCartButton.addTarget(self, action: #selector(cartAddTapped), for: .touchUpInside)
     }
 
     func configure(foodItem: FoodItem) {
+        self.foodItem = foodItem
         self.foodName.text = foodItem.name
         self.price.text = "Rs. \(foodItem.price)/-"
         self.foodItemImage.kf.setImage(with: URL(string: foodItem.imageUrl), placeholder: UIImage(named: "placeholderImage"))
+    }
+    
+    @objc func cartAddTapped() {
+        if let item = self.foodItem {
+            self.addToCartItem?(item)
+        }
+        
     }
 }
 

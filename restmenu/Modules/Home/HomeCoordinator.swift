@@ -25,9 +25,19 @@ final class HomeCoordinator: BaseCoordinator {
 extension HomeCoordinator {
     
     private func showHomeScreen() {
-        let homeController = HomeViewController(baseView: HomeView(), baseViewModel: HomeViewModel())
+        let homeViewModel =  HomeViewModel()
+        let homeController = HomeViewController(baseView: HomeView(), baseViewModel: homeViewModel)
+        homeViewModel.gotoCartViewController.sink { [weak self] carts in
+            guard let self = self else {return}
+            self.showCartController(carts: carts)
+        }.store(in: &bag)
         route.setRoot(homeController, animated: true, hideBar: false)
         route.showNavBar()
+    }
+    
+    private func showCartController(carts: [CartModel]) {
+        let vc = CartViewController(baseView: CartView(), baseViewModel: CartViewModel(cartItems: carts))
+        route.push(vc)
     }
 }
 

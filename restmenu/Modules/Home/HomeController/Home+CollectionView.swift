@@ -41,6 +41,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: FoodItemCell.self), for: indexPath) as? FoodItemCell else {return UICollectionViewCell() }
         cell.configure(foodItem: viewModel.foodCategories.value[indexPath.section - 1].foodItems[indexPath.row])
+        cell.addToCartItem = { [weak self] item in
+            guard let self = self else {return}
+            self.addToCartConfermationAlert(foodItem: item)
+        }
         return cell
     }
     

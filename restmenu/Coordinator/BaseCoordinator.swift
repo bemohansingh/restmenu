@@ -21,7 +21,7 @@ class BaseCoordinator: Coordinator {
     var onFinish: (() -> Void)?
     
     //Since we are using Combine we need this bag to deinitialize all the subscribers
-    let bag: [AnyCancellable] = [AnyCancellable]()
+    var bag: [AnyCancellable] = [AnyCancellable]()
     
     /// Method to start the coordinator
     func start() {

@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+class CartViewModel: BaseViewModel {
+    var cartItems: [CartModel]
+    
+    init(cartItems: [CartModel]) {
+        self.cartItems = cartItems
+    }
+    
+}

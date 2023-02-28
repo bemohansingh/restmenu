@@ -10,6 +10,7 @@ import Combine
 
 class HomeViewModel: BaseViewModel {
     let foodCategories = CurrentValueSubject<[FoodCategory], Never>([])
+    let gotoCartViewController = PassthroughSubject<[CartModel], Never>()
     
     override init() {
         super.init()
