@@ -118,10 +118,10 @@ class FoodItemCell: UICollectionViewCell {
 //        selectionStyle = .none
     }
 
-    func configure() {
-        self.foodName.text = "Veg MO:MO"//hotel.title
-        self.price.text = "Rs. 120/-"//hotel.description
-        self.foodItemImage.kf.setImage(with: URL(string: "https://img.freepik.com/premium-photo/momo-nepali-dumplings_608291-11.jpg?w=1380"), placeholder: UIImage(named: "placeholderImage"))
+    func configure(foodItem: FoodItem) {
+        self.foodName.text = foodItem.name
+        self.price.text = "Rs. \(foodItem.price)/-"
+        self.foodItemImage.kf.setImage(with: URL(string: foodItem.imageUrl), placeholder: UIImage(named: "placeholderImage"))
     }
 }
 

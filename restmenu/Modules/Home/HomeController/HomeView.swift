@@ -15,6 +15,7 @@ class HomeView: BaseView {
         collectionView.backgroundColor = .clear
         collectionView.register(FoodItemCell.self, forCellWithReuseIdentifier: String(describing: FoodItemCell.self))
         collectionView.register(InfoView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: String(describing: InfoView.self))
+        collectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: String(describing: HeaderView.self))
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
