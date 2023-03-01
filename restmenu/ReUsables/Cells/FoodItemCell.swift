@@ -124,8 +124,8 @@ class FoodItemCell: UICollectionViewCell {
     func configure(foodItem: FoodItem) {
         self.foodItem = foodItem
         self.foodName.text = foodItem.name
-        self.price.text = "Rs. \(foodItem.price)/-"
-        self.foodItemImage.kf.setImage(with: URL(string: foodItem.imageUrl), placeholder: UIImage(named: "placeholderImage"))
+        self.price.text = "Rs. \(foodItem.price) /-"
+        self.foodItemImage.kf.setImage(with: URL(string: foodItem.imageUrl), placeholder: UIImage(systemName: "photo"))
     }
     
     @objc func cartAddTapped() {

@@ -151,7 +151,7 @@ class CheckoutItemCell: UITableViewCell {
         self.foodPrice.text = "Cost: Rs. \(cartItem.item.price) /-"
         self.quantity.text = "Quantity: \(cartItem.quantity)"
         self.totalCostLabel.text = "Rs. \(cartItem.item.price * Double(cartItem.quantity))"
-        self.foodItemImage.kf.setImage(with: URL(string: cartItem.item.imageUrl), placeholder: UIImage(named: "placeholderImage"))
+        self.foodItemImage.kf.setImage(with: URL(string: cartItem.item.imageUrl), placeholder: UIImage(systemName: "photo"))
     }
     
     @objc func reduceQuantityTapped() {

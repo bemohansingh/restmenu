@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 import Combine
 
 class HomeViewModel: BaseViewModel {
@@ -16,7 +17,8 @@ class HomeViewModel: BaseViewModel {
     
     override init() {
         super.init()
-        configureCategories()
+        //        configureCategories()
+        fetchFoodMenus()
     }
     func configureCategories() {
         foodCategoriesMain.send([
@@ -46,15 +48,28 @@ class HomeViewModel: BaseViewModel {
                 return tempCat
             }))
         }
-        
     }
-}
-
-extension String {
-    func contains(find: String) -> Bool{
-        return self.range(of: find) != nil
-    }
-    func containsIgnoringCase(find: String) -> Bool{
-        return self.range(of: find, options: .caseInsensitive) != nil
+    
+    func fetchFoodMenus() {
+        AF.request("https://63fefa26c5c800a72388f5d2.mockapi.io/getRestaurantItems")
+            .validate()
+            .responseData { [weak self] response in
+                guard let self = self else {return}
+                switch response.result {
+                case .success:
+                    do {
+                        let jsons = try JSONSerialization.jsonObject(with: response.value!, options: []) as? [[String : Any]]
+                        let categories = FoodCategory.parse(jsons: jsons ?? [[:]])
+                        self.foodCategoriesMain.send(categories)
+                        self.foodCategories.send(categories)
+                    } catch {
+                        self.foodCategoriesMain.send([])
+                        self.foodCategories.send([])
+                    }
+                case .failure:
+                    self.foodCategoriesMain.send([])
+                    self.foodCategories.send([])
+                }
+            }
     }
 }

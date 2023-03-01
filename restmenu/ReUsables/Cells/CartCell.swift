@@ -180,7 +180,7 @@ class CartCell: UITableViewCell {
         self.foodName.text = cartItem.item.name
         self.foodPrice.text = "Rs. \(cartItem.item.price) /-"
         self.quantity.text = "\(cartItem.quantity)"
-        self.foodItemImage.kf.setImage(with: URL(string: cartItem.item.imageUrl), placeholder: UIImage(named: "placeholderImage"))
+        self.foodItemImage.kf.setImage(with: URL(string: cartItem.item.imageUrl), placeholder: UIImage(systemName: "photo"))
     }
     
     @objc func reduceQuantityTapped() {
