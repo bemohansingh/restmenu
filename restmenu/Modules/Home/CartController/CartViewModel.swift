@@ -11,6 +11,7 @@ import Combine
 class CartViewModel: BaseViewModel {
     var cartItems: [CartModel]
     let gotoCheckoutController = PassthroughSubject<[CartModel], Never>()
+    let gotoFoodItemDetailController = PassthroughSubject<FoodItem, Never>()
     
     init(cartItems: [CartModel]) {
         self.cartItems = cartItems

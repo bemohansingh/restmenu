@@ -27,10 +27,17 @@ extension HomeCoordinator {
     private func showHomeScreen() {
         let homeViewModel =  HomeViewModel()
         let homeController = HomeViewController(baseView: HomeView(), baseViewModel: homeViewModel)
+        
         homeViewModel.gotoCartViewController.sink { [weak self] carts in
             guard let self = self else {return}
             self.showCartController(carts: carts)
         }.store(in: &bag)
+        
+        homeViewModel.gotoFoodItemDetailController.sink { [weak self] foodItem in
+            guard let self = self else {return}
+            self.showFoodItemDetailController(foodItem: foodItem)
+        }.store(in: &bag)
+        
         route.setRoot(homeController, animated: true, hideBar: false)
         route.showNavBar()
     }
@@ -41,6 +48,17 @@ extension HomeCoordinator {
             guard let self = self else {return}
             self.showCheckoutController(carts: carts)
         }.store(in: &bag)
+        
+        cartViewController.viewModel.gotoFoodItemDetailController.sink { [weak self] foodItem in
+            guard let self = self else {return}
+            self.showFoodItemDetailController(foodItem: foodItem)
+        }.store(in: &bag)
+        
+        route.push(cartViewController)
+    }
+    
+    private func showFoodItemDetailController(foodItem: FoodItem) {
+        let cartViewController = FoodItemDetailViewController(baseView: FoodItemDetailView(), baseViewModel: FoodItemDetailViewModel(foodItem: foodItem))
         route.push(cartViewController)
     }
     

@@ -12,4 +12,5 @@ struct FoodItem: Codable {
     let name: String
     let imageUrl: String
     let price: Double
+    let desc: String
 }

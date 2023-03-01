@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+
+class FoodItemDetailViewModel: BaseViewModel {
+    let foodItem: FoodItem
+    
+    init(foodItem: FoodItem) {
+        self.foodItem = foodItem
+    }
+}

@@ -25,6 +25,13 @@ class CartViewController: BaseController {
         updateView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let carts = CartManager.shared.getAllCarts()
+        viewModel.cartItems = carts
+        screenView.tableView.reloadData()
+    }
+    
     func deleteCart(cartItem: CartModel) {
         let alert = UIAlertController(title: "Delete Cart?", message: "Are you sure to delete \(cartItem.item.name) from your cart list?", preferredStyle: UIAlertController.Style.alert)
         
