@@ -59,6 +59,11 @@ struct CartManager {
         }
     }
     
+    func deleteAllCarts() {
+        UserDefaults.standard.removeObject(forKey: "carts")
+        UserDefaults.standard.synchronize()
+    }
+    
     func getAllCarts() -> [CartModel] {
         if let cartData = UserDefaults.standard.data(forKey: "carts") {
             do {

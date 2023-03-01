@@ -6,3 +6,14 @@
 //
 
 import Foundation
+import Combine
+
+class CheckoutViewModel: BaseViewModel {
+    var cartItems: [CartModel]
+    let gotoOrderSuccessController = PassthroughSubject<[CartModel], Never>()
+    
+    init(cartItems: [CartModel]) {
+        self.cartItems = cartItems
+    }
+    
+}

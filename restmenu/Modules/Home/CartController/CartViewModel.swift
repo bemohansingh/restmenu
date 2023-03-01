@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import Combine
 
 class CartViewModel: BaseViewModel {
     var cartItems: [CartModel]
+    let gotoCheckoutController = PassthroughSubject<[CartModel], Never>()
     
     init(cartItems: [CartModel]) {
         self.cartItems = cartItems

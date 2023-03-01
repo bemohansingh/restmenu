@@ -20,6 +20,17 @@ class CartView: BaseView {
         return tableView
     }()
     
+    lazy var noCartFoundLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .gray
+        label.font = label.font.withSize(12)
+        label.numberOfLines = 1
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Please add items from menu!"
+        return label
+    }()
+    
     lazy var cartCheckout: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -38,12 +49,18 @@ class CartView: BaseView {
     private func generateChildren() {
         addSubview(tableView)
         addSubview(cartCheckout)
+        addSubview(noCartFoundLabel)
         
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: cartCheckout.topAnchor, constant: -8),
             tableView.topAnchor.constraint(equalTo: topAnchor),
+            
+            noCartFoundLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            noCartFoundLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            noCartFoundLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            noCartFoundLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             
             cartCheckout.centerXAnchor.constraint(equalTo: centerXAnchor),
             cartCheckout.heightAnchor.constraint(equalToConstant: 45),

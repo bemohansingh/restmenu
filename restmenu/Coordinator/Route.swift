@@ -59,22 +59,27 @@ final class Route {
         rootController?.isNavigationBarHidden = hideBar
     }
     
+    func setControllers(_ presentables: [Presentable], animated: Bool = true, hideBar: Bool = true) {
+        rootController?.setViewControllers(presentables.map({$0.presenting!}), animated: false)
+        rootController?.isNavigationBarHidden = hideBar
+    }
+    
     func pop() {
         rootController?.popViewController(animated: true)
     }
     
-    func popToRoot() {
-        
+    func popToRoot(_ animated: Bool = true) {
+        rootController?.popToRootViewController(animated: animated)
     }
     
-    func present(_ presentable: Presentable?) {
+    func present(_ presentable: Presentable?, completion: (() -> Void)? = nil) {
 
         guard let presentable = presentable as? UIViewController else { return }
-        rootController?.present(presentable, animated: true, completion: nil)
+        rootController?.present(presentable, animated: true, completion: completion)
     }
     
-    func dismiss() {
-        rootController?.dismiss(animated: true, completion: nil)
+    func dismiss(completion: (() -> Void)? = nil) {
+        rootController?.dismiss(animated: true, completion: completion)
     }
 }
 

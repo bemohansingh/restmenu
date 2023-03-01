@@ -48,6 +48,11 @@
 		0A9982B929AE39E1000C0C67 /* BadgeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9982B829AE39E1000C0C67 /* BadgeButton.swift */; };
 		0A9982BB29AE4F06000C0C67 /* CartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9982BA29AE4F06000C0C67 /* CartCell.swift */; };
 		0A9982BD29AE515E000C0C67 /* Cart+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9982BC29AE515D000C0C67 /* Cart+TableView.swift */; };
+		0A9982BF29AF45A0000C0C67 /* Checkout+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9982BE29AF45A0000C0C67 /* Checkout+TableView.swift */; };
+		0A9982C229AF4657000C0C67 /* OrderSuccessController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9982C129AF4657000C0C67 /* OrderSuccessController.swift */; };
+		0A9982C429AF4662000C0C67 /* OrderSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9982C329AF4662000C0C67 /* OrderSuccessView.swift */; };
+		0A9982C629AF4671000C0C67 /* OrderSuccessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9982C529AF4671000C0C67 /* OrderSuccessViewModel.swift */; };
+		0A9982C829AF549E000C0C67 /* CheckoutItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9982C729AF549E000C0C67 /* CheckoutItemCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +117,11 @@
 		0A9982B829AE39E1000C0C67 /* BadgeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeButton.swift; sourceTree = "<group>"; };
 		0A9982BA29AE4F06000C0C67 /* CartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCell.swift; sourceTree = "<group>"; };
 		0A9982BC29AE515D000C0C67 /* Cart+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cart+TableView.swift"; sourceTree = "<group>"; };
+		0A9982BE29AF45A0000C0C67 /* Checkout+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Checkout+TableView.swift"; sourceTree = "<group>"; };
+		0A9982C129AF4657000C0C67 /* OrderSuccessController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSuccessController.swift; sourceTree = "<group>"; };
+		0A9982C329AF4662000C0C67 /* OrderSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSuccessView.swift; sourceTree = "<group>"; };
+		0A9982C529AF4671000C0C67 /* OrderSuccessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSuccessViewModel.swift; sourceTree = "<group>"; };
+		0A9982C729AF549E000C0C67 /* CheckoutItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutItemCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +271,7 @@
 		0A99828129ADC7F9000C0C67 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				0A9982C029AF4636000C0C67 /* OrderSuccessController */,
 				0A9982AC29AE2BF4000C0C67 /* CheckoutController */,
 				0A9982A529AE2BC2000C0C67 /* CartController */,
 				0A99829E29AE2B85000C0C67 /* FoodItemDetailController */,
@@ -295,6 +306,7 @@
 			children = (
 				0A99828D29ADFA5A000C0C67 /* FoodItemCell.swift */,
 				0A9982BA29AE4F06000C0C67 /* CartCell.swift */,
+				0A9982C729AF549E000C0C67 /* CheckoutItemCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -346,6 +358,7 @@
 				0A9982AD29AE2C03000C0C67 /* CheckoutController.swift */,
 				0A9982AF29AE2C0D000C0C67 /* CheckoutViewModel.swift */,
 				0A9982B129AE2C17000C0C67 /* CheckoutView.swift */,
+				0A9982BE29AF45A0000C0C67 /* Checkout+TableView.swift */,
 			);
 			path = CheckoutController;
 			sourceTree = "<group>";
@@ -356,6 +369,16 @@
 				0A9982B429AE2F89000C0C67 /* CartManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		0A9982C029AF4636000C0C67 /* OrderSuccessController */ = {
+			isa = PBXGroup;
+			children = (
+				0A9982C129AF4657000C0C67 /* OrderSuccessController.swift */,
+				0A9982C329AF4662000C0C67 /* OrderSuccessView.swift */,
+				0A9982C529AF4671000C0C67 /* OrderSuccessViewModel.swift */,
+			);
+			path = OrderSuccessController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -501,11 +524,14 @@
 				0A99829B29AE25C0000C0C67 /* FoodCategory.swift in Sources */,
 				0A9982B729AE3163000C0C67 /* CartModel.swift in Sources */,
 				0A99829929AE256A000C0C67 /* FoodItem.swift in Sources */,
+				0A9982BF29AF45A0000C0C67 /* Checkout+TableView.swift in Sources */,
 				0A9982AE29AE2C03000C0C67 /* CheckoutController.swift in Sources */,
 				0A99827829ADC6DD000C0C67 /* BaseController.swift in Sources */,
+				0A9982C629AF4671000C0C67 /* OrderSuccessViewModel.swift in Sources */,
 				0A99828E29ADFA5A000C0C67 /* FoodItemCell.swift in Sources */,
 				0A99823929ACF970000C0C67 /* AppDelegate.swift in Sources */,
 				0A9982BB29AE4F06000C0C67 /* CartCell.swift in Sources */,
+				0A9982C829AF549E000C0C67 /* CheckoutItemCell.swift in Sources */,
 				0A9982B029AE2C0D000C0C67 /* CheckoutViewModel.swift in Sources */,
 				0A99827F29ADC798000C0C67 /* AppColor.swift in Sources */,
 				0A9982AB29AE2BE3000C0C67 /* CartView.swift in Sources */,
@@ -519,6 +545,7 @@
 				0A99827129ADC508000C0C67 /* BaseCoordinator.swift in Sources */,
 				0A9982B929AE39E1000C0C67 /* BadgeButton.swift in Sources */,
 				0A9982A929AE2BDA000C0C67 /* CartViewModel.swift in Sources */,
+				0A9982C229AF4657000C0C67 /* OrderSuccessController.swift in Sources */,
 				0A99829329ADFDA7000C0C67 /* Home+CollectionView.swift in Sources */,
 				0A99827A29ADC6E5000C0C67 /* BaseView.swift in Sources */,
 				0A9982A029AE2B9E000C0C67 /* FoodItemDetailController.swift in Sources */,
@@ -529,6 +556,7 @@
 				0A9982A429AE2BB9000C0C67 /* FoodItemDetailViewModel.swift in Sources */,
 				0A9982B529AE2F89000C0C67 /* CartManager.swift in Sources */,
 				0A99823B29ACF970000C0C67 /* SceneDelegate.swift in Sources */,
+				0A9982C429AF4662000C0C67 /* OrderSuccessView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

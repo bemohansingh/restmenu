@@ -1,14 +1,15 @@
 //
-//  CartCell.swift
+//  CheckoutItemCell.swift
 //  restmenu
 //
-//  Created by Mohan Singh Thagunna on 28/02/2023.
+//  Created by Mohan Singh Thagunna on 01/03/2023.
 //
+
 
 import UIKit
 import Kingfisher
 
-class CartCell: UITableViewCell {
+class CheckoutItemCell: UITableViewCell {
 
     private lazy var containerView: UIView = {
         let view = UIView()
@@ -60,33 +61,15 @@ class CartCell: UITableViewCell {
         return label
     }()
     
-    lazy var quantityMinusButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("-", for: .normal)
-        button.backgroundColor = .appTheme
-        button.tintColor = .white
-        button.layer.cornerRadius = 16
-        return button
-    }()
     
-    lazy var quantityPlusButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("+", for: .normal)
-        button.layer.cornerRadius = 16
-        button.backgroundColor = .appTheme
-        button.tintColor = .white
-        return button
-    }()
-    
-    lazy var cartDeleteButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "trash.fill"), for: .normal)
-        button.tintColor = .appTheme
-        button.layer.cornerRadius = 25
-        return button
+    lazy var totalCostLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .appTheme
+        label.font = label.font.withSize(12)
+        label.numberOfLines = 1
+        label.textAlignment = .right
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
 
     private var cartItem: CartModel?
@@ -120,7 +103,7 @@ class CartCell: UITableViewCell {
         let subViews = [containerView]
         subViews.forEach(contentView.addSubview)
 
-        let contentSubviews = [foodItemImage, foodName, foodPrice, quantity, separatorLine, quantityMinusButton, quantityPlusButton, cartDeleteButton]
+        let contentSubviews = [foodItemImage, foodName, foodPrice, quantity, separatorLine, totalCostLabel]
         contentSubviews.forEach(containerView.addSubview)
 
         NSLayoutConstraint.activate([
@@ -143,23 +126,13 @@ class CartCell: UITableViewCell {
             foodPrice.leadingAnchor.constraint(equalTo: foodItemImage.trailingAnchor, constant: 8),
             foodPrice.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8),
             
-            quantityMinusButton.leadingAnchor.constraint(equalTo: foodItemImage.trailingAnchor, constant: 8),
-            quantityMinusButton.heightAnchor.constraint(equalToConstant: 32),
-            quantityMinusButton.widthAnchor.constraint(equalToConstant: 32),
-            quantityMinusButton.centerYAnchor.constraint(equalTo: quantity.centerYAnchor),
+            quantity.topAnchor.constraint(equalTo: foodPrice.bottomAnchor, constant: 8),
+            quantity.leadingAnchor.constraint(equalTo: foodItemImage.trailingAnchor, constant: 8),
             
-            quantity.topAnchor.constraint(equalTo: foodPrice.bottomAnchor, constant: 16),
-            quantity.leadingAnchor.constraint(equalTo: quantityMinusButton.trailingAnchor, constant: 8),
-            
-            quantityPlusButton.leadingAnchor.constraint(equalTo: quantity.trailingAnchor, constant: 8),
-            quantityPlusButton.heightAnchor.constraint(equalToConstant: 32),
-            quantityPlusButton.widthAnchor.constraint(equalToConstant: 32),
-            quantityPlusButton.centerYAnchor.constraint(equalTo: quantity.centerYAnchor),
-            
-            cartDeleteButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            cartDeleteButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8),
-            cartDeleteButton.heightAnchor.constraint(equalToConstant: 45),
-            cartDeleteButton.widthAnchor.constraint(equalToConstant: 45),
+            totalCostLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            totalCostLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8),
+            totalCostLabel.heightAnchor.constraint(equalToConstant: 45),
+            totalCostLabel.widthAnchor.constraint(equalToConstant: 200),
             
             separatorLine.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
             separatorLine.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
@@ -170,16 +143,14 @@ class CartCell: UITableViewCell {
 
     private func setupUI() {
         selectionStyle = .none
-        quantityMinusButton.addTarget(self, action: #selector(reduceQuantityTapped), for: .touchUpInside)
-        quantityPlusButton.addTarget(self, action: #selector(addQuantityTapped), for: .touchUpInside)
-        cartDeleteButton.addTarget(self, action: #selector(deleteCartTapped), for: .touchUpInside)
     }
 
     func configure(cartItem: CartModel) {
         self.cartItem = cartItem
         self.foodName.text = cartItem.item.name
-        self.foodPrice.text = "Rs. \(cartItem.item.price) /-"
-        self.quantity.text = "\(cartItem.quantity)"
+        self.foodPrice.text = "Cost: Rs. \(cartItem.item.price) /-"
+        self.quantity.text = "Quantity: \(cartItem.quantity)"
+        self.totalCostLabel.text = "Rs. \(cartItem.item.price * Double(cartItem.quantity))"
         self.foodItemImage.kf.setImage(with: URL(string: cartItem.item.imageUrl), placeholder: UIImage(named: "placeholderImage"))
     }
     
@@ -205,3 +176,4 @@ class CartCell: UITableViewCell {
         }
     }
 }
+

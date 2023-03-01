@@ -36,8 +36,33 @@ extension HomeCoordinator {
     }
     
     private func showCartController(carts: [CartModel]) {
-        let vc = CartViewController(baseView: CartView(), baseViewModel: CartViewModel(cartItems: carts))
-        route.push(vc)
+        let cartViewController = CartViewController(baseView: CartView(), baseViewModel: CartViewModel(cartItems: carts))
+        cartViewController.viewModel.gotoCheckoutController.sink { [weak self] carts in
+            guard let self = self else {return}
+            self.showCheckoutController(carts: carts)
+        }.store(in: &bag)
+        route.push(cartViewController)
+    }
+    
+    private func showCheckoutController(carts: [CartModel]) {
+        let cartViewController = CheckoutViewController(baseView: CheckoutView(), baseViewModel: CheckoutViewModel(cartItems: carts))
+        cartViewController.viewModel.gotoOrderSuccessController.sink { [weak self] carts in
+            guard let self = self else {return}
+            self.showOrderSuccessController()
+        }.store(in: &bag)
+        route.push(cartViewController)
+    }
+    
+    private func showOrderSuccessController() {
+        let orderSuccessViewController = OrderSuccessViewController(baseView: OrderSuccessView(), baseViewModel: OrderSuccessViewModel())
+        orderSuccessViewController.modalTransitionStyle = .crossDissolve
+        orderSuccessViewController.modalPresentationStyle = .fullScreen
+        orderSuccessViewController.viewModel.goHome.sink {
+            orderSuccessViewController.dismiss(animated: true)
+        }.store(in: &bag)
+        route.present(orderSuccessViewController) {
+            self.route.popToRoot(false)
+        }
     }
 }
 

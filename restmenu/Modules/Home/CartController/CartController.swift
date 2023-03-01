@@ -18,8 +18,11 @@ class CartViewController: BaseController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "My Carts"
         screenView.tableView.delegate = self
         screenView.tableView.dataSource = self
+        screenView.cartCheckout.addTarget(self, action: #selector(checkoutButtonTapped), for: .touchUpInside)
+        updateView()
     }
     
     func deleteCart(cartItem: CartModel) {
@@ -36,7 +39,18 @@ class CartViewController: BaseController {
                 self.viewModel.cartItems.remove(at: index)
             }
             self.screenView.tableView.reloadData()
+            self.updateView()
         }))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func updateView() {
+        screenView.cartCheckout.isHidden = viewModel.cartItems.isEmpty
+        screenView.noCartFoundLabel.isHidden = !viewModel.cartItems.isEmpty
+        screenView.tableView.isHidden = viewModel.cartItems.isEmpty
+    }
+    
+    @objc func checkoutButtonTapped() {
+        viewModel.gotoCheckoutController.send(viewModel.cartItems)
     }
 }
