@@ -9,6 +9,7 @@ import Foundation
 import Combine
 
 class HomeViewModel: BaseViewModel {
+    private let foodCategoriesMain = CurrentValueSubject<[FoodCategory], Never>([])
     let foodCategories = CurrentValueSubject<[FoodCategory], Never>([])
     let gotoCartViewController = PassthroughSubject<[CartModel], Never>()
     let gotoFoodItemDetailController = PassthroughSubject<FoodItem, Never>()
@@ -18,7 +19,7 @@ class HomeViewModel: BaseViewModel {
         configureCategories()
     }
     func configureCategories() {
-        foodCategories.send([
+        foodCategoriesMain.send([
             FoodCategory(id: 1, name: "Drinks", foodItems: [
                 FoodItem(id: 1, name: "Coka Cola", imageUrl: "https://images.unsplash.com/photo-1624552184280-9e9631bbeee9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y29jYWNvbGF8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60", price: 70, desc: "Dummy"),
                 FoodItem(id: 2, name: "Pepsi", imageUrl: "https://images.unsplash.com/photo-1629203849820-fdd70d49c38e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80", price: 40, desc: "Dummy"),
@@ -30,5 +31,30 @@ class HomeViewModel: BaseViewModel {
                 FoodItem(id: 7, name: "Jhol MO:MO", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiV8f7OOZAEw4ww0-HLlxf3nPD_E2FkA6p-Q&usqp=CAU", price: 200, desc: "Dummy"),
             ])
         ])
+        foodCategories.send(foodCategoriesMain.value)
+    }
+    
+    func filterItems(_ query: String) {
+        if query.isEmpty {
+            foodCategories.send(foodCategoriesMain.value)
+        } else {
+            let categories = foodCategoriesMain.value.filter({$0.foodItems.contains(where: {$0.name.lowercased().contains(find: query.lowercased())})})
+            foodCategories.send(categories.map({ cat in
+                var tempCat = cat
+                let items = cat.foodItems.filter({$0.name.lowercased().contains(find: query.lowercased())})
+                tempCat.foodItems = items
+                return tempCat
+            }))
+        }
+        
+    }
+}
+
+extension String {
+    func contains(find: String) -> Bool{
+        return self.range(of: find) != nil
+    }
+    func containsIgnoringCase(find: String) -> Bool{
+        return self.range(of: find, options: .caseInsensitive) != nil
     }
 }

@@ -10,5 +10,5 @@ import Foundation
 struct FoodCategory {
     let id: Int
     let name: String
-    let foodItems: [FoodItem]
+    var foodItems: [FoodItem]
 }

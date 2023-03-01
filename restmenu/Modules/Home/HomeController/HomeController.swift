@@ -20,6 +20,10 @@ class HomeViewController: BaseController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        screenView.searchBar.delegate = self
+        let searchBarItem = UIBarButtonItem(customView: screenView.searchBar)
+        self.navigationItem.leftBarButtonItem = searchBarItem
+        
         screenView.collectionView.delegate = self
         screenView.collectionView.dataSource = self
         cartButton = BadgedButtonItem(with: UIImage(systemName: "cart"))
@@ -33,6 +37,13 @@ class HomeViewController: BaseController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateCartBadge()
+    }
+    
+    override func observeEvents() {
+        viewModel.foodCategories.sink { [weak self]_ in
+            guard let self = self else {return}
+            self.screenView.collectionView.reloadData()
+        }.store(in: &viewModel.bag)
     }
     
     
@@ -59,4 +70,15 @@ class HomeViewController: BaseController {
     func cartButtonTapped() {
         viewModel.gotoCartViewController.send(CartManager.shared.getAllCarts())
     }
+}
+
+extension HomeViewController:  UISearchBarDelegate, UISearchDisplayDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.filterItems(searchText)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.screenView.searchBar.endEditing(true)
+    }
+
 }

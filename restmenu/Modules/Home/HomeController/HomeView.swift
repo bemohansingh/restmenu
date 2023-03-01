@@ -9,6 +9,14 @@ import UIKit
 
 class HomeView: BaseView {
     
+    lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar(frame: CGRectMake(0, 0, UIScreen.main.bounds.width - 80, 20))
+        searchBar.placeholder = "Search here"
+        searchBar.returnKeyType = .done
+        searchBar.enablesReturnKeyAutomatically = false
+        return searchBar
+    }()
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
